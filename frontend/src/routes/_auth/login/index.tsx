@@ -15,8 +15,9 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { signIn } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -38,7 +39,18 @@ function LoginComponent() {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      const { data, error } = await signIn.email({
+        email: value.email,
+        password: value.password,
+      });
+
+      if (error) {
+        console.error(error);
+      }
+
+      if (data) {
+        redirect({ to: "/" });
+      }
     },
   });
 
