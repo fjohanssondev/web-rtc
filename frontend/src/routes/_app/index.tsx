@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_app/")({
 
     if (!data?.session) {
       throw redirect({
-        to: "/meeting/join",
+        to: "/login",
         search: {
           redirect: location.href,
         },
