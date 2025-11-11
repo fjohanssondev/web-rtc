@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MeetingCreateRouteImport } from './routes/meeting/create'
+import { Route as MeetingJoinIndexRouteImport } from './routes/meeting/join/index'
 import { Route as MeetingMeetingIdIndexRouteImport } from './routes/meeting/$meetingId/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const MeetingCreateRoute = MeetingCreateRouteImport.update({
   path: '/meeting/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeetingJoinIndexRoute = MeetingJoinIndexRouteImport.update({
+  id: '/meeting/join/',
+  path: '/meeting/join/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MeetingMeetingIdIndexRoute = MeetingMeetingIdIndexRouteImport.update({
   id: '/meeting/$meetingId/',
   path: '/meeting/$meetingId/',
@@ -33,30 +39,39 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/meeting/create': typeof MeetingCreateRoute
   '/meeting/$meetingId': typeof MeetingMeetingIdIndexRoute
+  '/meeting/join': typeof MeetingJoinIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/meeting/create': typeof MeetingCreateRoute
   '/meeting/$meetingId': typeof MeetingMeetingIdIndexRoute
+  '/meeting/join': typeof MeetingJoinIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/meeting/create': typeof MeetingCreateRoute
   '/meeting/$meetingId/': typeof MeetingMeetingIdIndexRoute
+  '/meeting/join/': typeof MeetingJoinIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/meeting/create' | '/meeting/$meetingId'
+  fullPaths: '/' | '/meeting/create' | '/meeting/$meetingId' | '/meeting/join'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meeting/create' | '/meeting/$meetingId'
-  id: '__root__' | '/' | '/meeting/create' | '/meeting/$meetingId/'
+  to: '/' | '/meeting/create' | '/meeting/$meetingId' | '/meeting/join'
+  id:
+    | '__root__'
+    | '/'
+    | '/meeting/create'
+    | '/meeting/$meetingId/'
+    | '/meeting/join/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MeetingCreateRoute: typeof MeetingCreateRoute
   MeetingMeetingIdIndexRoute: typeof MeetingMeetingIdIndexRoute
+  MeetingJoinIndexRoute: typeof MeetingJoinIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeetingCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/meeting/join/': {
+      id: '/meeting/join/'
+      path: '/meeting/join'
+      fullPath: '/meeting/join'
+      preLoaderRoute: typeof MeetingJoinIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/meeting/$meetingId/': {
       id: '/meeting/$meetingId/'
       path: '/meeting/$meetingId'
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MeetingCreateRoute: MeetingCreateRoute,
   MeetingMeetingIdIndexRoute: MeetingMeetingIdIndexRoute,
+  MeetingJoinIndexRoute: MeetingJoinIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
