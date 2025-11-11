@@ -33,7 +33,13 @@ function Header() {
           </nav>
         </div>
         <div className="ml-auto">
-          {!data?.user ? <Button>Login</Button> : <Button>Logout</Button>}
+          {!data?.user ? (
+            <Button asChild>
+              <Link to="/login">Login</Link>
+            </Button>
+          ) : (
+            <Button>Logout</Button>
+          )}
         </div>
       </Container>
     </header>
