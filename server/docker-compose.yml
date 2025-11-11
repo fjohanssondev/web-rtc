@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: video-calls
+    ports:
+      - "5432:5432"
