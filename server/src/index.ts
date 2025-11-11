@@ -2,16 +2,19 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { AccessToken } from 'livekit-server-sdk'
+import { auth } from '../lib/auth.js'
 
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 
 app.use("/api/*", cors({
   origin: "http://localhost:5173"
 }))
+
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
+})
 
 app.post("/api/token", async (c) => {
   const { roomName, identity } = await c.req.json()
