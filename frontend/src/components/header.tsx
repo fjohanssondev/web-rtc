@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { useSession } from "@/lib/auth-client";
+import { UserMenu } from "./user-menu";
 
 function Header() {
   const { data } = useSession();
@@ -32,13 +33,13 @@ function Header() {
             </ul>
           </nav>
         </div>
-        <div className="ml-auto">
+        <div className="flex ml-auto">
           {!data?.user ? (
             <Button asChild>
               <Link to="/login">Login</Link>
             </Button>
           ) : (
-            <Button>Logout</Button>
+            <UserMenu />
           )}
         </div>
       </Container>
