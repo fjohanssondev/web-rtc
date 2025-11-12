@@ -23,7 +23,10 @@ function Dashboard() {
   return (
     <main className="mt-8">
       <Container>
-        <CreateMeeting />
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-medium">Dashboard</h1>
+          <CreateMeeting />
+        </div>
       </Container>
     </main>
   );

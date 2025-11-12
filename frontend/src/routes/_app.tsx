@@ -9,7 +9,6 @@ function RouteComponent() {
   return (
     <>
       <Header />
-      <span>App layput</span>
       <Outlet />
     </>
   );

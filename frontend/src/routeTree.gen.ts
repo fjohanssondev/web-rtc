@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/_auth/login/index'
+import { Route as AppCalendarIndexRouteImport } from './routes/_app/calendar/index'
 import { Route as AppMeetingCreateRouteImport } from './routes/_app/meeting/create'
 import { Route as AppMeetingJoinIndexRouteImport } from './routes/_app/meeting/join/index'
 import { Route as AppMeetingMeetingIdIndexRouteImport } from './routes/_app/meeting/$meetingId/index'
@@ -35,6 +36,11 @@ const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => AuthRoute,
 } as any)
+const AppCalendarIndexRoute = AppCalendarIndexRouteImport.update({
+  id: '/calendar/',
+  path: '/calendar/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppMeetingCreateRoute = AppMeetingCreateRouteImport.update({
   id: '/meeting/create',
   path: '/meeting/create',
@@ -55,6 +61,7 @@ const AppMeetingMeetingIdIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/meeting/create': typeof AppMeetingCreateRoute
+  '/calendar': typeof AppCalendarIndexRoute
   '/login': typeof AuthLoginIndexRoute
   '/meeting/$meetingId': typeof AppMeetingMeetingIdIndexRoute
   '/meeting/join': typeof AppMeetingJoinIndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/meeting/create': typeof AppMeetingCreateRoute
+  '/calendar': typeof AppCalendarIndexRoute
   '/login': typeof AuthLoginIndexRoute
   '/meeting/$meetingId': typeof AppMeetingMeetingIdIndexRoute
   '/meeting/join': typeof AppMeetingJoinIndexRoute
@@ -72,6 +80,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_app/': typeof AppIndexRoute
   '/_app/meeting/create': typeof AppMeetingCreateRoute
+  '/_app/calendar/': typeof AppCalendarIndexRoute
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_app/meeting/$meetingId/': typeof AppMeetingMeetingIdIndexRoute
   '/_app/meeting/join/': typeof AppMeetingJoinIndexRoute
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/meeting/create'
+    | '/calendar'
     | '/login'
     | '/meeting/$meetingId'
     | '/meeting/join'
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/meeting/create'
+    | '/calendar'
     | '/login'
     | '/meeting/$meetingId'
     | '/meeting/join'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_app/'
     | '/_app/meeting/create'
+    | '/_app/calendar/'
     | '/_auth/login/'
     | '/_app/meeting/$meetingId/'
     | '/_app/meeting/join/'
@@ -137,6 +149,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_app/calendar/': {
+      id: '/_app/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AppCalendarIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/meeting/create': {
       id: '/_app/meeting/create'
       path: '/meeting/create'
@@ -164,6 +183,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AppMeetingCreateRoute: typeof AppMeetingCreateRoute
+  AppCalendarIndexRoute: typeof AppCalendarIndexRoute
   AppMeetingMeetingIdIndexRoute: typeof AppMeetingMeetingIdIndexRoute
   AppMeetingJoinIndexRoute: typeof AppMeetingJoinIndexRoute
 }
@@ -171,6 +191,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AppMeetingCreateRoute: AppMeetingCreateRoute,
+  AppCalendarIndexRoute: AppCalendarIndexRoute,
   AppMeetingMeetingIdIndexRoute: AppMeetingMeetingIdIndexRoute,
   AppMeetingJoinIndexRoute: AppMeetingJoinIndexRoute,
 }

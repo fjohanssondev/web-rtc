@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -30,6 +30,7 @@ export const Route = createFileRoute("/_auth/login/")({
 });
 
 function LoginComponent() {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -49,7 +50,7 @@ function LoginComponent() {
       }
 
       if (data) {
-        redirect({ to: "/" });
+        router.navigate({ to: data.url });
       }
     },
   });
