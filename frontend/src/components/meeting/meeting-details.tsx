@@ -1,15 +1,16 @@
 import { Timer } from "@/components/ui/timer";
-import { useParticipants } from "@livekit/components-react";
+// import { useParticipants } from "@livekit/components-react";
+import { Container } from "@/components/container";
 
 function MeetingDetails() {
-  const participants = useParticipants();
-  console.log(participants);
+  // const participants = useParticipants();
+
   return (
     <section className="py-4 bg-background">
-      <div className="flex justify-between container mx-auto">
+      <Container className="flex items-center justify-between">
         <h1>Sprint Review</h1>
-        <Timer />
-      </div>
+        <Timer startDate={new Date()} />
+      </Container>
     </section>
   );
 }
