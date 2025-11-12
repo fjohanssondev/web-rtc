@@ -21,30 +21,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
+import { Link2 } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(5),
-  description: z.string().min(5),
+  displayName: z.string().min(3).max(15),
+  url: z.string(),
 });
 
-function CreateMeeting() {
+function JoinMeeting() {
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
-      name: "",
-      description: "",
+      displayName: "",
+      url: "",
     },
     validators: {
       onSubmit: formSchema,
     },
     ...formOptions,
     onSubmit: async ({ value }) => {
-      navigate({
-        to: "/meeting/$meetingId",
-        params: { meetingId: value.name },
-      });
+      console.log(value);
     },
   });
 
@@ -52,14 +48,14 @@ function CreateMeeting() {
     <Dialog>
       <DialogTrigger asChild>
         <Button>
-          <Plus />
-          <span>Create Meeting</span>
+          <Link2 />
+          <span>Join Meeting</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="sr-only">
-          <DialogTitle>Create Meeting</DialogTitle>
-          <DialogDescription>Create a new meeting</DialogDescription>
+          <DialogTitle>Join Meeting</DialogTitle>
+          <DialogDescription>Soon you're in a cozy room</DialogDescription>
         </DialogHeader>
         <form
           onSubmit={(e) => {
@@ -69,18 +65,18 @@ function CreateMeeting() {
         >
           <FieldGroup>
             <FieldSet>
-              <FieldLegend>Create meeting</FieldLegend>
-              <FieldDescription>Enjoy your meeting</FieldDescription>
+              <FieldLegend>Join Meeting</FieldLegend>
+              <FieldDescription>Soon you're in a cozy room</FieldDescription>
               <FieldGroup>
                 <form.Field
-                  name="name"
+                  name="displayName"
                   children={(field) => {
                     const isInvalid =
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
                         <FieldLabel htmlFor={field.name}>
-                          Meeting name
+                          Displayname
                         </FieldLabel>
                         <Input
                           id={field.name}
@@ -88,11 +84,11 @@ function CreateMeeting() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
-                          placeholder="Sprint Planning"
+                          placeholder="John Doe"
                           required
                         />
                         <FieldDescription>
-                          Give a name to the meeting
+                          Pick a name others will see you as
                         </FieldDescription>
                         {isInvalid && (
                           <FieldError errors={field.state.meta.errors} />
@@ -102,26 +98,24 @@ function CreateMeeting() {
                   }}
                 />
                 <form.Field
-                  name="description"
+                  name="url"
                   children={(field) => {
                     const isInvalid =
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          Meeting description
-                        </FieldLabel>
-                        <Textarea
+                        <FieldLabel htmlFor={field.name}>URL</FieldLabel>
+                        <Input
                           id={field.name}
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
-                          placeholder="This is a meeting for the sprint planning..."
+                          placeholder="http://localhost:5173/join/Uiwue2873"
                           required
                         />
                         <FieldDescription>
-                          Describe what the meeting is about
+                          Paste the URL the host gave you
                         </FieldDescription>
                         {isInvalid && (
                           <FieldError errors={field.state.meta.errors} />
@@ -133,7 +127,7 @@ function CreateMeeting() {
               </FieldGroup>
             </FieldSet>
             <Field orientation="horizontal">
-              <Button type="submit">Create</Button>
+              <Button type="submit">Join</Button>
               <DialogClose asChild>
                 <Button variant="outline" type="button">
                   Cancel
@@ -147,4 +141,4 @@ function CreateMeeting() {
   );
 }
 
-export { CreateMeeting };
+export { JoinMeeting };
