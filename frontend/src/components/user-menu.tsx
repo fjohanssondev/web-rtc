@@ -8,6 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { signOut } from "@/lib/auth-client";
 
 function UserMenu() {
   return (
@@ -30,7 +31,7 @@ function UserMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

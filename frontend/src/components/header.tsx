@@ -13,7 +13,7 @@ function Header() {
         <div className="flex items-center">
           <span className="font-medium">Video App</span>
           <nav className="ml-24">
-            <ul className="flex space-x-2">
+            <ul className="flex space-x-4">
               <li>
                 <Link
                   to="/"
@@ -24,11 +24,11 @@ function Header() {
               </li>
               <li>
                 <Link
-                  to="/meeting/create"
+                  to="/calendar"
                   className="[&.active]:font-medium [&.active]:underline hover:underline"
                 >
-                  Create meeting
-                </Link>{" "}
+                  Calendar
+                </Link>
               </li>
             </ul>
           </nav>
